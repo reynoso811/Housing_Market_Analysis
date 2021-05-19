@@ -62,6 +62,11 @@ positively_correlated_df = df[positively_correlated_cols]
 sns.pairplot(positively_correlated_df);
 
 
+plt.figure(figsize=(15,10))
+plt.tight_layout()
+sns.distplot(df['price']).set_title('Average house price')
+
+
 fsm_df = df[["sqft_living", "price"]].copy()
 fsm_df.dropna(inplace=True)
 
@@ -78,7 +83,7 @@ f, ax = plt.subplots(figsize=(10, 8))
 
 
 sns.regplot(x="sqft_living", y="price", data=fsm_df, ax=ax).set_title('Model1 Visualization');
-
+plt.savefig('viz1.png')
 
 
 rainbow_statistic, rainbow_p_value = linear_rainbow(fsm_results)
@@ -152,6 +157,12 @@ model_2_results = model_2.fit()
 model_2_results.summary()
 
 
+sns.pairplot(df,
+            x_vars=['sqft_living', 'floors'],
+            y_vars=['price'],
+             kind='reg').savefig('test1.png')
+
+
 rainbow_statistic, rainbow_p_value = linear_rainbow(model_2_results)
 print("Rainbow statistic:", rainbow_statistic)
 print("Rainbow p-value:", rainbow_p_value)
@@ -188,6 +199,12 @@ model_3_results = model_3.fit()
 
 
 model_3_results.summary()
+
+
+sns.pairplot(df,
+            x_vars=['sqft_living', 'floors', 'bedrooms'],
+            y_vars=['price'],
+             kind='reg')
 
 
 rainbow_statistic, rainbow_p_value = linear_rainbow(model_3_results)
